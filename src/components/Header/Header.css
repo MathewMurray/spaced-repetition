@@ -1,0 +1,19 @@
+a {
+  color:bisque;
+}
+.nav{
+  text-align: right;
+  margin-right: 10px;
+}
+nav {
+  margin-top: 4px;
+}
+header{
+  background-color: dimgray;
+  text-align: center;
+  padding-top: 4px;
+}
+#header_text a{
+  text-align: center;
+  text-decoration: none;
+}

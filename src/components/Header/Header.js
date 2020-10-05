@@ -15,11 +15,11 @@ class Header extends Component {
     return (
       <div>
         <span>
-          {this.context.user.name}
+          { this.context.user.name }
         </span>
-        <nav>
+        <nav className="nav">
           <Link
-            onClick={this.handleLogoutClick}
+            onClick={ this.handleLogoutClick }
             to='/login'>
             Logout
           </Link>
@@ -30,9 +30,9 @@ class Header extends Component {
 
   renderLoginLink() {
     return (
-      <nav>
+      <nav className="nav">
         <Link to='/login'>Login</Link>
-        {' '}
+        {' ' }
         <Link to='/register'>Sign up</Link>
       </nav>
     )
@@ -41,14 +41,15 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1>
+        {TokenService.hasAuthToken()
+          ? this.renderLogoutLink()
+          : this.renderLoginLink() }
+
+        <h1 id="header_text">
           <Link to='/'>
             Spaced repetition
           </Link>
         </h1>
-        {TokenService.hasAuthToken()
-          ? this.renderLogoutLink()
-          : this.renderLoginLink()}
       </header>
     );
   }
