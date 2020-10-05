@@ -11,6 +11,17 @@
     padding: 40px;
     width: 100%;
 }
+.RegistrationSection form div
+{
+    display: flex;
+    flex-direction: column;
+    
+}
+.RegistrationSection input
+{
+    width: 200px;
+    margin: auto;
+}
 
 .RegistrationSection .Label
 {
