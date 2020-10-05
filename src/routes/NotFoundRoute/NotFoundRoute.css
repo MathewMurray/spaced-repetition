@@ -1,0 +1,21 @@
+.notFound h2
+{
+    color: crimson;
+}
+.notFound
+{
+    margin:auto;
+    text-align: center;
+    padding: 100px;
+    width: 100%;
+    background-color: rgb(228, 228, 228);
+    
+}
+
+@media screen and (min-width: 600px)
+{
+    .notFound
+    {
+        width: 500px;
+    }
+} 
