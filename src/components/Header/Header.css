@@ -1,5 +1,6 @@
 a {
   color:bisque;
+  text-decoration: none;
 }
 .nav{
   text-align: right;
@@ -8,6 +9,9 @@ a {
 nav {
   margin-top: 4px;
 }
+h1{
+  padding-bottom: 10px;
+}
 header{
   background-color: dimgray;
   text-align: center;
@@ -15,5 +19,4 @@ header{
 }
 #header_text a{
   text-align: center;
-  text-decoration: none;
 }
