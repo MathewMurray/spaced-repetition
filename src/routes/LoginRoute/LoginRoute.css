@@ -1,0 +1,38 @@
+.LoginSection
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(228, 228, 228);
+    border: black 1px solid;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    width: 100%;
+}
+
+.LoginSection .Label
+{
+       
+    margin-right: 5px;
+}
+.LoginSection h2
+{
+    margin: 15px;
+}
+.LoginSection button
+{
+    margin-top: 5px;
+    
+}
+@media screen and (min-width: 600px)
+{
+    .LoginSection
+    {
+        width: 400px;
+        height: 250px;
+    }
+} 
+
+
