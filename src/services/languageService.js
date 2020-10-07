@@ -29,7 +29,5 @@ export default {
             })
             Resolve(await words.json())
         })
-    }
-
-
+    },
 }

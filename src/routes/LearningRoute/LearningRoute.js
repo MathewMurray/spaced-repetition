@@ -17,7 +17,9 @@ class LearningRoute extends Component {
         console.log(word);
         html.push(<li key={ word.id }>
           <h4>{ word.original }</h4>
-          <p>correct answer count: { word.correct_count }</p>
+          <label>Guess:</label>
+          <input></input>
+          <button>Submit</button>
         </li>)
       }
       return html;
