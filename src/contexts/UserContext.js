@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import AuthApiService from '../services/auth-api-service'
 import TokenService from '../services/token-service'
 import IdleService from '../services/idle-service'
+import LS from '../services/languageService';
+import LC from './LanguageContext'
 
 const UserContext = React.createContext({
   user: {},
@@ -62,6 +64,7 @@ export class UserProvider extends Component {
 
   processLogin = authToken => {
     TokenService.saveAuthToken(authToken)
+    
     const jwtPayload = TokenService.parseAuthToken()
     this.setUser({
       id: jwtPayload.user_id,

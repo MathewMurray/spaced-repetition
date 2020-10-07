@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LS from '../../services/languageService';
+import LC from '../../contexts/LanguageContext';
 require('./DashboardRoute.css');
 class DashboardRoute extends Component {
   state = {
@@ -7,7 +8,7 @@ class DashboardRoute extends Component {
   }
   componentDidMount = async () => {
     const langData = await LS.getLanguageData();
-    this.setState(langData);
+    this.context.setData(langData)
   }
   populatePracticeWords = () => {
     if (this.state.words) {
