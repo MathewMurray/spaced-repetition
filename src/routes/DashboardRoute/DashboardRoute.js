@@ -18,7 +18,7 @@ class DashboardRoute extends Component {
       const html = [];
       for(const word of words)
       {
-        console.log(word);
+        //console.log(word);
         html.push(<li key={word.id}>
                     <h4>{word.original}</h4>
                     <p>correct answer count: {word.correct_count}</p>
@@ -33,7 +33,6 @@ class DashboardRoute extends Component {
     if(this.context.language)
     {
       const {name,total_score} = this.context.language;
-      console.log(this.state);
       return (
         <section className="Dashboard">
           <h2>{name}</h2>
