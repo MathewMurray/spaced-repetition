@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import AuthApiService from '../services/auth-api-service'
 import TokenService from '../services/token-service'
 import IdleService from '../services/idle-service'
-import LS from '../services/languageService';
-import LC from './LanguageContext'
+//import LS from '../services/languageService';
+//import LC from './LanguageContext'
 
 const UserContext = React.createContext({
   user: {},
   error: null,
-  setError: () => {},
-  clearError: () => {},
-  setUser: () => {},
-  processLogin: () => {},
-  processLogout: () => {},
+  setError: () => { },
+  clearError: () => { },
+  setUser: () => { },
+  processLogin: () => { },
+  processLogout: () => { },
 })
 
 export default UserContext
 
 export class UserProvider extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const state = { user: {}, error: null }
 
@@ -64,7 +64,7 @@ export class UserProvider extends Component {
 
   processLogin = authToken => {
     TokenService.saveAuthToken(authToken)
-    
+
     const jwtPayload = TokenService.parseAuthToken()
     this.setUser({
       id: jwtPayload.user_id,
@@ -115,8 +115,8 @@ export class UserProvider extends Component {
       processLogout: this.processLogout,
     }
     return (
-      <UserContext.Provider value={value}>
-        {this.props.children}
+      <UserContext.Provider value={ value }>
+        {this.props.children }
       </UserContext.Provider>
     )
   }

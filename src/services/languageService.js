@@ -30,4 +30,15 @@ export default {
             Resolve(await words.json())
         })
     },
+    postGuess(guess) {
+        const token = tokenService.getAuthToken();
+        return fetch(`${config.API_ENDPOINT}/language/guess`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `bearer ${token}`
+            },
+            body: JSON.stringify({ guess: guess })
+        })
+    }
 }
