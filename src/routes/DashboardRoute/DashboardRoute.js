@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import LS from '../../services/languageService';
+import LC from '../../contexts/LanguageContext';
 require('./DashboardRoute.css');
 class DashboardRoute extends Component {
-  state = {
-
-  }
+  static contextType = LC;
+  
   componentDidMount = async()=>
   {
     const langData = await LS.getLanguageData();
-    this.setState(langData);
+    this.context.setData(langData)
   }
   populatePracticeWords = ()=>
   {
-    if(this.state.words)
+    if(this.context.words)
     {
-      const words = this.state.words;
+      const words = this.context.words;
       const html = [];
       for(const word of words)
       {
@@ -28,11 +28,11 @@ class DashboardRoute extends Component {
       return html;
     }
   }
-  render=()=>{
+  render = ()=>{
     
-    if(this.state.language)
+    if(this.context.language)
     {
-      const {name,user_id,id,head,total_score} = this.state.language;
+      const {name,total_score} = this.context.language;
       console.log(this.state);
       return (
         <section className="Dashboard">
