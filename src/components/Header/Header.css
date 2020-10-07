@@ -1,6 +1,10 @@
 a {
-  color:bisque;
+  color: darkgray;
   text-decoration: none;
+}
+a:hover
+{
+  color: blue;
 }
 .nav{
   text-align: right;

@@ -1,0 +1,28 @@
+.Dashboard
+{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: -22px;
+    width: 100%;
+    background-color: rgb(228, 228, 228);
+}
+.Dashboard ul
+{
+    margin:0;
+    padding:0;
+}
+.Dashboard li
+{
+    list-style-type: none;
+    
+}
+@media screen and (min-width: 600px)
+{
+    .Dashboard
+    {
+        width: 800px;
+        margin-left:auto;
+        margin-right: auto;
+    }
+}
