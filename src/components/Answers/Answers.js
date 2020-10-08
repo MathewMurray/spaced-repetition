@@ -10,16 +10,13 @@ class Answers extends Component {
     return (
       <div className={ `results${hiddenAnswerSection}` }>
         <section className="answers">
-          <h2>{ submissionResults }</h2>
+          <h3>{ submissionResults }</h3>
           <div>
             <p>The correct translation for { currentWord }
             is { translation }</p>
             <p>you chose { userGuess }</p>
           </div>
           <button onClick={ this.props.handleNext }>try another word.</button>
-          <div className="scoreDisplay">
-            <p>Total Score is { totalScore }</p>
-          </div>
         </section>
       </div>
     );

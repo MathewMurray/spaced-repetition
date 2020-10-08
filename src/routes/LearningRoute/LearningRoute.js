@@ -16,11 +16,11 @@ class LearningRoute extends Component {
     }
   }
 
-  getWord = async()=> {
+  getWord = async () => {
     const data = await LS.getWordsData();
-    this.setState({originalWord:data});
+    this.setState({ originalWord: data });
 
-    
+
   }
 
   componentDidMount() {
@@ -29,16 +29,16 @@ class LearningRoute extends Component {
 
   handleSubmit = async ev => {
     ev.preventDefault();
-    
+
     let { guess } = ev.target;
     guess = guess.value;
     ev.target.guess.value = "";
-    
+
     const data = await LS.postGuess(guess, this.state.originalWord);
-    
+    console.log(data)
     this.setState({
       didSubmit: true,
-      rightAnswer: data.answer,
+      rightAnswer: data.translation,
       userAnswer: guess,
       isCorrect: data.isCorrect,
       totalScore: data.totalScore
@@ -52,7 +52,7 @@ class LearningRoute extends Component {
     return this.getWord();
   }
 
-  render = ()=> {
+  render = () => {
     console.log(this.state)
     let currentWord = this.state.originalWord ? this.state.originalWord.nextWord : '';
     console.log(this.state);
@@ -70,13 +70,13 @@ class LearningRoute extends Component {
         <section className="word">
           <h2>Translate the word:</h2>
           <span className="currentWord">{ currentWord }</span>
-          <p className="yourScore">Your total score is: { totalScore }</p>
+          <p className="DisplayScore p">Your total score is : { totalScore }</p>
         </section>
         <form onSubmit={ this.handleSubmit }>
           <fieldset className={ `form ${hiddenSubmission}` }>
             <legend className="legend">Guess:</legend>
-            <label>whats the translation for this word?</label>
-            <input name='guess' required></input>
+            <label for="learn-guess-input">What's the translation for this word?</label>
+            <input name='guess' id="learn-guess-input" type="text" required></input>
             <button type='submit'>Submit your answer</button>
           </fieldset>
         </form>
@@ -92,8 +92,8 @@ class LearningRoute extends Component {
           />
         </section>
         <section className="score">
-          <p>total correct: { correctlyAnswered }</p>
-          <p>total wrong: { incorrectlyAnswered }</p>
+          <p>You have answered this word correctly { correctlyAnswered } times.</p>
+          <p>You have answered this word incorrectly { incorrectlyAnswered } times.</p>
         </section>
       </section>
     );
