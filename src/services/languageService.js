@@ -20,7 +20,7 @@ export default {
     getWordsData: async () => {
         const token = tokenService.getAuthToken();
         return await new Promise(async (Resolve) => {
-            const words = await fetch(`${config.API_ENDPOINT}/head/`, {
+            const words = await fetch(`${config.API_ENDPOINT}/head`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
