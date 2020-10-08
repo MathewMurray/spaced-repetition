@@ -16,34 +16,33 @@ class LearningRoute extends Component {
     }
   }
 
-  getWord() {
-    LS.getWordsData()
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        this.setState({ originalWord: res });
-      })
-      .catch(error => console.error(error));
+  getWord = async()=> {
+    const data = await LS.getWordsData();
+    this.setState({originalWord:data});
+
+    
   }
 
   componentDidMount() {
     return this.getWord()
   }
 
-  handleSubmit = ev => {
+  handleSubmit = async ev => {
     ev.preventDefault();
+    
     let { guess } = ev.target;
     guess = guess.value;
-    LS.postGuess(guess, this.state.originalWord.id)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          didSubmit: true,
-          totalScore: res.totalScore
-        })
-      })
-      .catch(error => console.log(error))
+    ev.target.guess.value = "";
+    
+    const data = await LS.postGuess(guess, this.state.originalWord);
+    
+    this.setState({
+      didSubmit: true,
+      rightAnswer: data.answer,
+      userAnswer: guess,
+      isCorrect: data.isCorrect,
+      totalScore: data.totalScore
+    })
   }
 
   handleNext = () => {
@@ -53,7 +52,8 @@ class LearningRoute extends Component {
     return this.getWord();
   }
 
-  render() {
+  render = ()=> {
+    console.log(this.state)
     let currentWord = this.state.originalWord ? this.state.originalWord.nextWord : '';
     console.log(this.state);
     let translation = this.state.didSubmit ? this.state.rightAnswer : '';
