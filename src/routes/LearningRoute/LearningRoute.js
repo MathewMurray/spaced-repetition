@@ -18,7 +18,7 @@ class LearningRoute extends Component {
 
   getWord = async () => {
     const data = await LS.getWordsData();
-    this.setState({ originalWord: data, didSubmit:false });
+    this.setState({ originalWord: data, didSubmit: false });
 
 
   }
@@ -35,7 +35,7 @@ class LearningRoute extends Component {
     ev.target.guess.value = "";
 
     const data = await LS.postGuess(guess, this.state.originalWord);
-    
+
     this.setState({
       didSubmit: true,
       rightAnswer: data.answer,
@@ -73,12 +73,12 @@ class LearningRoute extends Component {
           <div className="DisplayScore">
             <p>Your total score is: { totalScore }</p>
           </div>
-          
         </section>
-        
-        <GuessForm submitted={this.state.didSubmit} submitHandler={this.handleSubmit}/>
+
+        <GuessForm totalScore={ totalScore } submitted={ this.state.didSubmit } submitHandler={ this.handleSubmit } />
         <section className="results">
           <Answers
+            submitted={ this.state.didSubmit }
             hiddenAnswerSection={ hiddenAnswerSection }
             userGuess={ userGuess }
             translation={ translation }
