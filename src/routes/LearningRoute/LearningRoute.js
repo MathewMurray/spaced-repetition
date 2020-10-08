@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import LS from '../../services/languageService'
 import Answers from '../../components/Answers/Answers'
-
+import GuessForm from '../../components/GuessForm/GuessForm';
 class LearningRoute extends Component {
   constructor (props) {
     super(props);
@@ -18,7 +18,7 @@ class LearningRoute extends Component {
 
   getWord = async () => {
     const data = await LS.getWordsData();
-    this.setState({ originalWord: data });
+    this.setState({ originalWord: data, didSubmit:false });
 
 
   }
@@ -35,10 +35,10 @@ class LearningRoute extends Component {
     ev.target.guess.value = "";
 
     const data = await LS.postGuess(guess, this.state.originalWord);
-    console.log(data)
+    
     this.setState({
       didSubmit: true,
-      rightAnswer: data.translation,
+      rightAnswer: data.answer,
       userAnswer: guess,
       isCorrect: data.isCorrect,
       totalScore: data.totalScore
@@ -56,30 +56,27 @@ class LearningRoute extends Component {
     console.log(this.state)
     let currentWord = this.state.originalWord ? this.state.originalWord.nextWord : '';
     console.log(this.state);
+    console.log(this.state);
     let translation = this.state.didSubmit ? this.state.rightAnswer : '';
     let userGuess = this.state.didSubmit
-      ? <span className={ this.state.isCorrect }>{ this.state.userAnswer }</span>
+      ? <span>{ this.state.userAnswer }</span>
       : '';
     let totalScore = this.state.originalWord ? this.state.originalWord.totalScore : '';
     let correctlyAnswered = this.state.originalWord ? this.state.originalWord.wordCorrectCount : '';
     let incorrectlyAnswered = this.state.originalWord ? this.state.originalWord.wordIncorrectCount : '';
-    let hiddenSubmission = this.state.didSubmit ? 'hidden' : '';
     let hiddenAnswerSection = !this.state.didSubmit ? 'hidden' : '';
     return (
       <section className='learn'>
         <section className="word">
-          <h2>Translate the word:</h2>
+          <h1>Translate the word:</h1>
           <span className="currentWord">{ currentWord }</span>
-          <p className="DisplayScore p">Your total score is : { totalScore }</p>
+          <div className="DisplayScore">
+            <p>Your total score is: { totalScore }</p>
+          </div>
+          
         </section>
-        <form onSubmit={ this.handleSubmit }>
-          <fieldset className={ `form ${hiddenSubmission}` }>
-            <legend className="legend">Guess:</legend>
-            <label for="learn-guess-input">What's the translation for this word?</label>
-            <input name='guess' id="learn-guess-input" type="text" required></input>
-            <button type='submit'>Submit your answer</button>
-          </fieldset>
-        </form>
+        
+        <GuessForm submitted={this.state.didSubmit} submitHandler={this.handleSubmit}/>
         <section className="results">
           <Answers
             hiddenAnswerSection={ hiddenAnswerSection }
