@@ -5,7 +5,7 @@ class Answers extends Component {
 
     let { submitted, hiddenAnswerSection, translation, userGuess, currentWord } = this.props;
     let submissionResults = this.props.isCorrect
-      ? <h2>Good try, but not quite right :(</h2>
+      ? <h2>You were correct! :D</h2>
       : <h2>Good try, but not quite right :(</h2>
     console.log(translation);
     if (submitted) {
