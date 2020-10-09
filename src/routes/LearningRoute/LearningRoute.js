@@ -18,7 +18,6 @@ class LearningRoute extends Component {
 
   getWord = async (nextButton = false) => {
     const data = await LS.getWordsData();
-    console.log(Date.now(), data);
     if (data) {
       const { nextWord, wordCorrectCount, wordIncorrectCount, totalScore } = data;
       if (nextButton) {
@@ -32,11 +31,6 @@ class LearningRoute extends Component {
     else {
       throw new Error("Database returned nothing.");
     }
-
-    console.log(Date.now(), this.state)
-
-
-
   }
 
   componentDidMount() {
@@ -51,7 +45,6 @@ class LearningRoute extends Component {
     ev.target.guess.value = "";
 
     const data = await LS.postGuess(guess, this.state.originalWord);
-    console.log(Date.now(), data.totalScore, "Totally on line 108");
     this.setState({
       nextWord: data.nextWord,
       didSubmit: true,
@@ -65,7 +58,6 @@ class LearningRoute extends Component {
   }
 
   handleNext = async () => {
-    console.log("Next pressed")
     this.getWord(1);
 
     this.setState({
