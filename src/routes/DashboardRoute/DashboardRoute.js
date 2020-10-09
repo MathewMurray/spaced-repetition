@@ -18,7 +18,7 @@ class DashboardRoute extends Component {
       const html = [];
       for(const word of words)
       {
-        //console.log(word);
+        ////console.log(word);
         html.push(<li key={word.id}>
                     <h4>{word.original}</h4>
                     <p>correct answer count: {word.correct_count}</p>

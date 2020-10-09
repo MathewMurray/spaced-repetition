@@ -7,7 +7,7 @@ class LearningRoute extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      originalWord: {},
+      originalWord:"",
       didSubmit: false,
       rightAnswer: '',
       userAnswer: '',
@@ -16,15 +16,35 @@ class LearningRoute extends Component {
     }
   }
 
-  getWord = async () => {
+  getWord = async (nextButton = false) => {
     const data = await LS.getWordsData();
-    this.setState({ originalWord: data, didSubmit: false });
+    console.log(Date.now(),data);
+    if(data)
+    {
+      const {nextWord,wordCorrectCount,wordIncorrectCount, totalScore} = data;
+      if(nextButton)
+      {
+        this.setState({wordCorrectCount:wordCorrectCount, wordIncorrectCount:wordIncorrectCount});
+      }
+      else
+      {
+        this.setState({originalWord:nextWord,wordCorrectCount:wordCorrectCount, wordIncorrectCount:wordIncorrectCount, totalScore:totalScore});
+      }
+      
+    }
+    else
+    {
+      throw new Error("Database returned nothing.");
+    }
+    
+    console.log(Date.now(),this.state)
+
 
 
   }
 
   componentDidMount() {
-    return this.getWord()
+    this.getWord()
   }
 
   handleSubmit = async ev => {
@@ -35,64 +55,68 @@ class LearningRoute extends Component {
     ev.target.guess.value = "";
 
     const data = await LS.postGuess(guess, this.state.originalWord);
-    console.log(data);
+    console.log(Date.now(),data.totalScore, "Totally on line 108");
     this.setState({
-      originalWord: data.nextWord,
+      nextWord:data.nextWord,
       didSubmit: true,
       rightAnswer: data.answer,
       userAnswer: guess,
       isCorrect: data.isCorrect,
-      totalScore: data.totalScore
+      totalScore: data.totalScore,
+      wordIncorrectCount:data.wordIncorrectCount,
+      wordCorrectCount:data.wordCorrectCount
     })
   }
 
-  handleNext = () => {
+  handleNext = async() => {
+    console.log("Next pressed")
+    this.getWord(1);
+    
     this.setState({
-      didSubmit: false
+      didSubmit: false,
+      originalWord:this.state.nextWord
     })
-    return this.getWord();
   }
 
   render = () => {
-    let currentWord = this.state.originalWord ? this.state.originalWord.nextWord : '';
-    console.log(this.state);
-    let translation = this.state.didSubmit ? this.state.rightAnswer : '';
-    let userGuess = this.state.didSubmit
-      ? <span>{ this.state.userAnswer }</span>
-      : '';
-    let totalScore = this.state.originalWord ? this.state.originalWord.totalScore : '';
-    let correctlyAnswered = this.state.originalWord ? this.state.originalWord.wordCorrectCount : '';
-    let incorrectlyAnswered = this.state.originalWord ? this.state.originalWord.wordIncorrectCount : '';
-    let hiddenAnswerSection = !this.state.didSubmit ? 'hidden' : '';
-    return (
-      <section className='learn'>
-        <section className="word">
-          <h2>Translate the word:</h2>
-          <span className="currentWord">{ currentWord }</span>
-          <div className="DisplayScore">
-            <p>Your total score is: { this.state.totalScore }</p>
-          </div>
-        </section>
+    
+    
+    if(this.state)
+    {
+      const {originalWord,totalScore,wordCorrectCount,wordIncorrectCount, didSubmit, userAnswer, rightAnswer, isCorrect,nextWord} = this.state;
 
-        <GuessForm totalScore={ totalScore } submitted={ this.state.didSubmit } submitHandler={ this.handleSubmit } />
-        <section className="results">
-          <Answers
-            submitted={ this.state.didSubmit }
-            hiddenAnswerSection={ hiddenAnswerSection }
-            userGuess={ userGuess }
-            translation={ translation }
-            totalScore={ totalScore }
-            handleNext={ this.handleNext }
-            currentWord={ currentWord }
-            isCorrect={ this.state.isCorrect }
-          />
-        </section>
-        <section className="score">
-          <p>You have answered this word correctly { correctlyAnswered } times.</p>
-          <p>You have answered this word incorrectly { incorrectlyAnswered } times.</p>
-        </section>
-      </section>
-    );
+        return (
+          <section className='learn'>
+            <section className="word">
+              <div className="DisplayScore">
+                <p>Your total score is: { totalScore }</p>
+              </div>
+            </section>
+    
+            <GuessForm totalScore={ totalScore } currentWord={originalWord} submitted={ didSubmit } submitHandler={ this.handleSubmit } />
+            <section className="results">
+              <Answers
+                submitted={ didSubmit }
+                userGuess={ userAnswer }
+                translation={ rightAnswer }
+                totalScore={ totalScore }
+                handleNext={ this.handleNext }
+                currentWord={ originalWord }
+                isCorrect={ isCorrect }
+              />
+            </section>
+            <section className="score">
+              <p>You have answered this word correctly { wordCorrectCount } times.</p>
+              <p>You have answered this word incorrectly { wordIncorrectCount } times.</p>
+            </section>
+          </section>
+        );
+      
+    }
+    else
+    {
+      return<></>
+    }
   }
 }
 

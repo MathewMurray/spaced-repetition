@@ -18,7 +18,7 @@ export default class App extends Component {
     if (data) {
       const { language, words } = data;
       this.setState({ language, words });
-      console.log(this.state);
+      //console.log(this.state);
     }
 
   }

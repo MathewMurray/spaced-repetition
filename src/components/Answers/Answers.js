@@ -7,7 +7,7 @@ class Answers extends Component {
     let submissionResults = this.props.isCorrect
       ? <h2>You were correct! :D</h2>
       : <h2>Good try, but not quite right :(</h2>
-    console.log(translation);
+    //console.log(translation);
     if (submitted) {
       return (
         <div className={ `results${hiddenAnswerSection}` }>
