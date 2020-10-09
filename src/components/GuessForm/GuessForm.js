@@ -1,5 +1,5 @@
 import React from 'react';
-
+require('./GuessForm.css');
 export default class GuessForm extends React.Component {
 
     render = () => {
@@ -16,7 +16,7 @@ export default class GuessForm extends React.Component {
                 <div>
                     <h2>Translate the word:</h2>
                     <span className="currentWord">{ currentWord }</span>
-                    <form onSubmit={ submitHandler }>
+                    <form className="guessForm" onSubmit={ submitHandler }>
                         <fieldset className={ `GuessForm` }>
                             <legend className="legend">Guess:</legend>
                             <label htmlFor="learn-guess-input">What's the translation for this word?</label>
