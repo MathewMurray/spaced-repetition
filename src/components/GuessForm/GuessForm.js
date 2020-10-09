@@ -10,7 +10,7 @@ export default class GuessForm extends React.Component {
         if (this.props.submitted === null || !this.props.submitHandler) {
             throw new Error("Prop content error.");
         }
-        let { submitted, submitHandler, currentWord} = this.props;
+        let { submitted, submitHandler, currentWord } = this.props;
         if (!submitted) {
             return (
                 <div>
@@ -20,8 +20,8 @@ export default class GuessForm extends React.Component {
                         <fieldset className={ `GuessForm` }>
                             <legend className="legend">Guess:</legend>
                             <label htmlFor="learn-guess-input">What's the translation for this word?</label>
-                            <input name='guess' id="learn-guess-input" type="text" required></input>
-                            <button type='submit'>Submit your answer</button>
+                            <input aria-label="translate the word here" name='guess' id="learn-guess-input" type="text" placeholder="translate the word.." required></input>
+                            <button aria-label="submit" type='submit'>Submit your answer</button>
                         </fieldset>
                     </form>
                 </div >
