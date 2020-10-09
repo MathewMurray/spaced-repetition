@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import LS from '../../services/languageService'
 import Answers from '../../components/Answers/Answers'
 import GuessForm from '../../components/GuessForm/GuessForm';
+require('./LearningRoute.css')
 class LearningRoute extends Component {
   constructor (props) {
     super(props);
